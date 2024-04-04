@@ -1,12 +1,12 @@
-export const ImageGellary = ({ articles }) => {
+export const ImageGellary = ({ images }) => {
   return (
-    <ul>
-      {articles.lenght > 0 ? (
-        articles.map((article) => (
-          <li key={article.id}>
+    <ul className="image-gallery-conteiner">
+      {images.length > 0 ? (
+        images.map((image) => (
+          <li key={image.id} className="image-galeri-item">
             <img
-              src={article.urls.small}
-              alt={article.description}
+              src={image.urls.small}
+              alt={image.alt_description}
               width="300"
             />
           </li>
