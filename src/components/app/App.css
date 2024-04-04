@@ -1,0 +1,8 @@
+@import url("../searchBar/searchBar.module.css");
+/* @import url("../");
+@import url("../");
+@import url("../"); */
+
+li {
+  list-style: none;
+}
