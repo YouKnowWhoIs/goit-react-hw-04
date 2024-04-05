@@ -1,19 +1,14 @@
+import { ImageCard } from "../imageCard/ImageCard.jsx";
+
 export const ImageGellary = ({ images }) => {
   return (
     <ul className="image-gallery-conteiner">
-      {images.length > 0 ? (
+      {images.length > 0 &&
         images.map((image) => (
           <li key={image.id} className="image-galeri-item">
-            <img
-              src={image.urls.small}
-              alt={image.alt_description}
-              width="300"
-            />
+            <ImageCard src={image.urls.small} alt={image.alt_description} />
           </li>
-        ))
-      ) : (
-        <p>Empty</p>
-      )}
+        ))}
     </ul>
   );
 };

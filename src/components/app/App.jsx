@@ -1,42 +1,44 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 
 import { fetchImages } from "../api/api.js";
 import { ImageGellary } from "../imageGellary/imageGellary.jsx";
 import { SearchBar } from "../searchBar/searchBar.jsx";
-// import { Loading } from "../loader/loader.jsx";
+import { Loading } from "../loader/loader.jsx";
+import { Error } from "../errorMessahe/errorMesage.jsx";
+import { LoadMoreBtn } from "../loadMoreBtn/loadMoreBtn.jsx";
 
 function App() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isError, setError] = useState(false);
 
-  {
-    loading && <p>Loading, please waite...</p>;
-  }
+  const load = async (searchInput) => {
+    try {
+      setImages([]);
+      setLoading(true);
+      const resData = await fetchImages(searchInput);
+      console.log(resData);
+      setImages(resData);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        setLoading(true);
-        const resData = await fetchImages();
-        console.log(resData);
-        setImages(resData);
-      } catch (error) {
-        console.log(error);
-        setLoading(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, []);
+  const HandleClick = () => {
+    console.log("work");
+  };
 
   return (
     <>
       <div>
-        <SearchBar />
+        <SearchBar onSearch={load} />
+        {loading && <Loading />}
+        {isError && <Error />}
         <ImageGellary images={images} />
+        <LoadMoreBtn HandleClick={HandleClick} />
       </div>
     </>
   );
