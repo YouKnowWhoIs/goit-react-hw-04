@@ -1,6 +1,6 @@
 import { toast, Toaster } from "react-hot-toast";
 
-export const SearchBar = ({ onSearch }) => {
+export const SearchBar = ({ onSearch, onSearchSuccess }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,7 +12,7 @@ export const SearchBar = ({ onSearch }) => {
     }
 
     if (onSearch) {
-      onSearch(searchInput);
+      onSearch(searchInput, onSearchSuccess);
     }
 
     form.reset();
