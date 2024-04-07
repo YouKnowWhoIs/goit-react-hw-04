@@ -57,9 +57,7 @@ function App() {
         {loading && <Loading />}
         {isError && <Error />}
         <ImageGellary images={images} />
-        {loadMoreBtn && load.lenght > 0 && (
-          <LoadMoreBtn HandleLoadMore={HandleLoadMore} />
-        )}
+        {loadMoreBtn && <LoadMoreBtn HandleLoadMore={HandleLoadMore} />}
       </div>
     </>
   );
