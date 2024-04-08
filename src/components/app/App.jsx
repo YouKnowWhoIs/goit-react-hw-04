@@ -16,6 +16,7 @@ function App() {
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedImages, setSelectedImages] = useState(null);
 
   const load = async (searchInput) => {
     try {
@@ -49,10 +50,12 @@ function App() {
     setLoadMoreBtn(hasResults);
   };
 
-  const handleOpen = (id) => {
+  const handleOpen = async (image) => {
+    setSelectedImages(image);
     setIsOpen(true);
-    console.log("open! id:", id);
+    console.log(image);
   };
+
   const handleClose = () => {
     setIsOpen(false);
     console.log("close!");
@@ -61,12 +64,18 @@ function App() {
   return (
     <>
       <div>
-        <ImageModal isOpen={isOpen} onRequestClose={handleClose} />
         <SearchBar onSearch={load} onSearchSuccess={onSearchSuccess} />
         {loading && <Loading />}
         {isError && <Error />}
         <ImageGellary images={images} handleOpen={handleOpen} />
         {loadMoreBtn && <LoadMoreBtn HandleLoadMore={HandleLoadMore} />}
+        {selectedImages && (
+          <ImageModal
+            isOpen={isOpen}
+            onRequestClose={handleClose}
+            image={selectedImages}
+          />
+        )}
       </div>
     </>
   );
