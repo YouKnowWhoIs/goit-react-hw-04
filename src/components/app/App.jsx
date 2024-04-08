@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 import { fetchImages } from "../api/api.js";
-import { ImageGellary } from "../imageGellary/imageGellary.jsx";
+import { ImageGallery } from "../imageGallery/imageGallery.jsx";
 import { SearchBar } from "../searchBar/searchBar.jsx";
 import { Loading } from "../loader/loader.jsx";
 import { Error } from "../errorMessahe/errorMesage.jsx";
@@ -65,7 +65,7 @@ function App() {
         <SearchBar onSearch={load} onSearchSuccess={onSearchSuccess} />
         {loading && <Loading />}
         {isError && <Error />}
-        <ImageGellary images={images} handleOpen={handleOpen} />
+        <ImageGallery images={images} handleOpen={handleOpen} />
         {loadMoreBtn && <LoadMoreBtn HandleLoadMore={HandleLoadMore} />}
         {selectedImages && (
           <ImageModal

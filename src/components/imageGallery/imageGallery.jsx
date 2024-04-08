@@ -1,6 +1,6 @@
 import { ImageCard } from "../imageCard/ImageCard.jsx";
 
-export const ImageGellary = ({ images, handleOpen }) => {
+export const ImageGallery = ({ images, handleOpen }) => {
   return (
     <ul className="image-gallery-conteiner">
       {images.length > 0 &&
