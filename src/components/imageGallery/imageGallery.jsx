@@ -5,12 +5,13 @@ export const ImageGallery = ({ images, handleOpen }) => {
     <ul className="image-gallery-conteiner">
       {images.length > 0 &&
         images.map((image) => (
-          <li
-            onClick={() => handleOpen(image)}
-            key={image.id}
-            className="image-galeri-item"
-          >
-            <ImageCard src={image.urls.small} alt={image.alt_description} />
+          <li key={image.id} className="image-galeri-item">
+            <ImageCard
+              image={image}
+              handleOpen={handleOpen}
+              src={image.urls.small}
+              alt={image.alt_description}
+            />
           </li>
         ))}
     </ul>

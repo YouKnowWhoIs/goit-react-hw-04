@@ -20,7 +20,6 @@ function App() {
 
   const load = async (searchInput) => {
     try {
-      setImages([]);
       setLoading(true);
       setSearchInput(searchInput);
       const resData = await fetchImages(searchInput);
