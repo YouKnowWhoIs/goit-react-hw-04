@@ -2,6 +2,7 @@
 @import url("../imageGellary/imageGellary.module.css");
 @import url("../errorMessahe/errorMesage.module.css");
 @import url("../loadMoreBtn/loadMoreBtn.module.css");
+@import url("../imageModal/imageModal.module.css");
 
 body {
   background-color: rgb(243, 207, 135);

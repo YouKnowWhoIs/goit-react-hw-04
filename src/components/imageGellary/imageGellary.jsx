@@ -6,7 +6,7 @@ export const ImageGellary = ({ images, handleOpen }) => {
       {images.length > 0 &&
         images.map((image) => (
           <li
-            onClick={() => handleOpen(image.id)}
+            onClick={() => handleOpen(image)}
             key={image.id}
             className="image-galeri-item"
           >

@@ -36,7 +36,7 @@ function App() {
   const HandleLoadMore = async () => {
     try {
       setLoading(true);
-      const nextPage = Math.ceil(images.length / 5) + 1;
+      const nextPage = Math.ceil(images.length / 10) + 1;
       const resData = await fetchImages(searchInput, nextPage);
       setImages([...images, ...resData]);
     } catch (error) {
@@ -53,12 +53,10 @@ function App() {
   const handleOpen = async (image) => {
     setSelectedImages(image);
     setIsOpen(true);
-    console.log(image);
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    console.log("close!");
   };
 
   return (
