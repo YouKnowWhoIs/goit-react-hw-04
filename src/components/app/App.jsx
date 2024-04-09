@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 import { fetchImages } from "../api/api.js";
@@ -14,35 +14,32 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
   const [loadMoreBtn, setLoadMoreBtn] = useState(false);
+  const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImages, setSelectedImages] = useState(null);
 
-  const load = async (searchInput) => {
-    try {
-      setLoading(true);
-      setSearchInput(searchInput);
-      const resData = await fetchImages(searchInput);
-      setImages(resData);
-      onSearchSuccess(resData.length > 0);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const load = async () => {
+      try {
+        setLoading(true);
+        if (searchInput === "") {
+          return;
+        }
+        const resData = await fetchImages(searchInput, page);
+        setImages((prevImages) => [...prevImages, ...resData]);
+        onSearchSuccess(resData.length > 0);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [searchInput, page]);
 
-  const HandleLoadMore = async () => {
-    try {
-      setLoading(true);
-      const nextPage = Math.ceil(images.length / 10) + 1;
-      const resData = await fetchImages(searchInput, nextPage);
-      setImages([...images, ...resData]);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
+  const HandleLoadMore = () => {
+    setPage(page + 1);
   };
 
   const onSearchSuccess = (hasResults) => {
@@ -58,10 +55,19 @@ function App() {
     setIsOpen(false);
   };
 
+  const handleSearchSubmit = (input) => {
+    setImages([]);
+    setSearchInput(input);
+    setPage(1);
+  };
+
   return (
     <>
       <div>
-        <SearchBar onSearch={load} onSearchSuccess={onSearchSuccess} />
+        <SearchBar
+          onSearch={handleSearchSubmit}
+          onSearchSuccess={onSearchSuccess}
+        />
         {loading && <Loading />}
         {isError && <Error />}
         <ImageGallery images={images} handleOpen={handleOpen} />
